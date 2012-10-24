@@ -95,5 +95,40 @@ class sha3:
 	def tableToString(self, table):
 		pass		
 
-	def round(): #Not sure what the pass in variables are yet
-		pass
+	def round(self, something, other): #Not sure what the pass in variables are yet, these are temporary.
+		"""Perform a round of calculation, the RC constant needs passing in but in a slightly different
+		for I haven't calculated yet"""
+		#Initialise some matrices 
+		X=[[0,0,0,0,0],	
+           [0,0,0,0,0],	
+           [0,0,0,0,0],
+           [0,0,0,0,0],
+           [0,0,0,0,0]]
+        Y= [0,0,0,0,0]	
+        Z= [0,0,0,0,0]
+
+        #Theta step
+        for x in range(5):
+            Y[x] = something[x][0]^something[x][1]^something[x][2]^something[x][3]^something[x][4]
+
+        for x in range(5):
+            Z[x] = Y[(x-1)%5]^self.rot(Y[(x+1)%5],1)
+
+        for x in range(5):
+            for y in range(5):
+                something[x][y] = something[x][y]^Z[x]
+
+        #Rho and Pi steps
+        for x in range(5):
+          for y in range(5):
+                X[y][(2*x+3*y)%5] = self.rot(something[x][y], self.r[x][y])
+
+        #Chi step
+        for x in range(5):
+            for y in range(5):
+                something[x][y] = X[x][y]^((~X[(x+1)%5][y]) & X[(x+2)%5][y])
+
+        #Iota step
+        something[0][0] = something[0][0]^other
+
+        return something
