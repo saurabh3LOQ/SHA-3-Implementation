@@ -86,5 +86,14 @@ class sha3:
 		"""Convert the hex string into a lane"""
 		pass
 
+	def printState(self, state, info):
+		pass
 
+	def stringToTable(self, string):
+		pass	
 
+	def tableToString(self, table):
+		pass		
+
+	def round(): #Not sure what the pass in variables are yet
+		pass
