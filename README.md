@@ -17,6 +17,6 @@ Author
 
 Bugs
 ---
-No know bugs
+No known bugs
 
 
